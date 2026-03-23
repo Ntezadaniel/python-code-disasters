@@ -5,10 +5,10 @@
 import requests
 import json
 
-# ----------------------------------------------------------------
+
 # PROBLEM 1: Bare except clause — catches everything including
 #            system exits and keyboard interrupts
-# ----------------------------------------------------------------
+
 def fetch_user_data(user_id):
     try:
         response = requests.get(f"https://api.example.com/users/{user_id}")
@@ -19,10 +19,10 @@ def fetch_user_data(user_id):
         return None
 
 
-# ----------------------------------------------------------------
+
 # PROBLEM 2: Swallowing exceptions silently — no logging,
 #            no re-raise, caller never knows what failed
-# ----------------------------------------------------------------
+
 def read_config(filepath):
     try:
         with open(filepath, "r") as f:
@@ -32,11 +32,11 @@ def read_config(filepath):
         pass  # silently ignored
 
 
-# ----------------------------------------------------------------
+
 # PROBLEM 3: Using generic Exception for everything —
 #            no distinction between a file not found vs
 #            a JSON parse error vs a permission error
-# ----------------------------------------------------------------
+
 def process_payment(amount, account_id):
     try:
         if amount <= 0:
@@ -49,9 +49,9 @@ def process_payment(amount, account_id):
         return None
 
 
-# ----------------------------------------------------------------
+
 # PROBLEM 4: No logging at all — impossible to debug in production
-# ----------------------------------------------------------------
+
 def delete_record(record_id, db_connection):
     try:
         db_connection.execute(f"DELETE FROM records WHERE id = {record_id}")
@@ -62,10 +62,10 @@ def delete_record(record_id, db_connection):
     return True
 
 
-# ----------------------------------------------------------------
+
 # PROBLEM 5: Catching and re-raising without preserving context
 #            (loses the original traceback)
-# ----------------------------------------------------------------
+
 def load_model(model_path):
     try:
         with open(model_path, "rb") as f:

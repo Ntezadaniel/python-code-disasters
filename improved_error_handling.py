@@ -7,10 +7,10 @@ import json
 import logging
 import logging.config
 
-# ----------------------------------------------------------------
+
 # LOGGING CONFIGURATION
 # Sets up a logger that writes to both console and a log file
-# ----------------------------------------------------------------
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
@@ -22,10 +22,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# ----------------------------------------------------------------
+
 # FIX 1: Replace bare except with specific exceptions
 #         Log the error with context before returning
-# ----------------------------------------------------------------
+
 def fetch_user_data(user_id):
     """Fetch user data from external API with proper error handling."""
     url = f"https://api.example.com/users/{user_id}"
@@ -47,10 +47,10 @@ def fetch_user_data(user_id):
     return None
 
 
-# ----------------------------------------------------------------
+
 # FIX 2: Never silently swallow exceptions
 #         Log clearly, and let callers handle the failure
-# ----------------------------------------------------------------
+
 def read_config(filepath):
     """Read and parse a JSON config file."""
     logger.info("Reading config file: %s", filepath)
@@ -70,10 +70,10 @@ def read_config(filepath):
         raise
 
 
-# ----------------------------------------------------------------
+
 # FIX 3: Use specific, meaningful custom exceptions
 #         instead of a generic Exception
-# ----------------------------------------------------------------
+
 class InvalidPaymentAmountError(ValueError):
     """Raised when a payment amount is zero or negative."""
 
@@ -100,10 +100,10 @@ def process_payment(amount, account_id):
         raise PaymentProcessingError("Payment processing failed") from e
 
 
-# ----------------------------------------------------------------
+
 # FIX 4: Add structured logging around every meaningful operation
 #         so production issues are traceable
-# ----------------------------------------------------------------
+
 def delete_record(record_id, db_connection):
     """Delete a record from the database with full audit logging."""
     logger.info("Attempting to delete record_id=%s", record_id)
@@ -123,10 +123,10 @@ def delete_record(record_id, db_connection):
         return False
 
 
-# ----------------------------------------------------------------
+
 # FIX 5: Preserve exception context using `raise ... from e`
 #         so the full traceback chain is visible in logs
-# ----------------------------------------------------------------
+
 def load_model(model_path):
     """Load a binary model file with full traceback preservation."""
     logger.info("Loading model from path: %s", model_path)
